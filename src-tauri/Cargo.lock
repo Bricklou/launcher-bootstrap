@@ -1112,6 +1112,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "interprocess"
+version = "2.0.0"
+source = "git+https://github.com/kotauskas/interprocess#e4a9d5643eb4bc61286fdfb476eda33a19a6f30a"
+dependencies = [
+ "cfg-if",
+ "libc",
+ "rustc_version 0.4.0",
+ "to_method",
+ "winapi",
+]
+
+[[package]]
 name = "itoa"
 version = "0.4.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1193,10 +1205,16 @@ dependencies = [
 name = "launcher-bootstrap"
 version = "0.0.0"
 dependencies = [
+ "dirs-next",
+ "interprocess",
+ "once_cell",
  "serde",
  "serde_json",
  "tauri",
  "tauri-build",
+ "tracing",
+ "tracing-subscriber",
+ "winreg",
 ]
 
 [[package]]
@@ -1477,16 +1495,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b7e5500299e16ebb147ae15a00a942af264cf3688f47923b8fc2cd5858f23ad3"
 
 [[package]]
-name = "open"
-version = "3.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2078c0039e6a54a0c42c28faa984e115fb4c2d5bf2208f77d1961002df8576f8"
-dependencies = [
- "pathdiff",
- "windows-sys 0.42.0",
-]
-
-[[package]]
 name = "overload"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1545,12 +1553,6 @@ name = "paste"
 version = "1.0.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d01a5bd0424d00070b0098dd17ebca6f961a959dead1dbcbbbc1d1cd8d3deeba"
-
-[[package]]
-name = "pathdiff"
-version = "0.2.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8835116a5c179084a830efb3adc117ab007512b535bc1a21c991d3b32a6b44dd"
 
 [[package]]
 name = "percent-encoding"
@@ -2365,11 +2367,9 @@ dependencies = [
  "ignore",
  "objc",
  "once_cell",
- "open",
  "percent-encoding",
  "rand 0.8.5",
  "raw-window-handle",
- "regex",
  "semver 1.0.16",
  "serde",
  "serde_json",
@@ -2421,7 +2421,6 @@ dependencies = [
  "png",
  "proc-macro2",
  "quote",
- "regex",
  "semver 1.0.16",
  "serde",
  "serde_json",
@@ -2617,6 +2616,12 @@ name = "tinyvec_macros"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
+
+[[package]]
+name = "to_method"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c7c4ceeeca15c8384bbc3e011dbd8fccb7f068a440b752b7d9b32ceb0ca0e2e8"
 
 [[package]]
 name = "tokio"
@@ -3120,6 +3125,16 @@ name = "windows_x86_64_msvc"
 version = "0.42.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "447660ad36a13288b1db4d4248e857b510e8c3a225c822ba4fb748c0aafecffd"
+
+[[package]]
+name = "winreg"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "76a1a57ff50e9b408431e8f97d5456f2807f8eb2a2cd79b06068fc87f8ecf189"
+dependencies = [
+ "cfg-if",
+ "winapi",
+]
 
 [[package]]
 name = "winres"

@@ -12,11 +12,7 @@
   },
   "tauri": {
     "allowlist": {
-      "all": false,
-      "shell": {
-        "all": false,
-        "open": true
-      }
+      "all": false
     },
     "bundle": {
       "active": true,
@@ -33,7 +29,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "ovh.bricklou.launcher-bootstrap",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -63,7 +59,8 @@
         "height": 600,
         "resizable": true,
         "title": "launcher-bootstrap",
-        "width": 800
+        "width": 800,
+        "label": "main"
       }
     ]
   }

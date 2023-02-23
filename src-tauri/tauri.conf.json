@@ -56,10 +56,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
-        "resizable": true,
+        "height": 500,
+        "resizable": false,
         "title": "launcher-bootstrap",
-        "width": 800,
+        "width": 400,
         "label": "main"
       }
     ]

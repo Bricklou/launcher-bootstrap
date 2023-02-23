@@ -43,7 +43,7 @@ jobs:
 
       - run: pnpm install
 
-      - run: pnpm run build:web
+      - run: pnpm run build
 
       - run: pnpm run lint
         if: matrix.platform == 'ubuntu-20.04'

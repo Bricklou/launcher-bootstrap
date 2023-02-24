@@ -11,7 +11,7 @@ pub struct Config {
 }
 
 impl Config {
-    pub async fn download_from_url(url: &str) -> Result<Self, Box<dyn std::error::Error>> {
+    pub async fn download_from_url(url: &str) -> Result<Self, reqwest::Error> {
         let response = reqwest::get(url).await?;
         let config = response.json::<Config>().await?;
         Ok(config)

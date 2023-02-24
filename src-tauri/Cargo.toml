@@ -23,6 +23,7 @@ dirs-next = "2"
 time = { version = "0.3", features = ["serde-well-known"] }
 reqwest = { version = "0.11", features = ["json"] }
 url = { version = "2" }
+thiserror = "1"
 
 [target.'cfg(windows)'.dependencies]
 interprocess = { git = "https://github.com/kotauskas/interprocess", default-features = false }

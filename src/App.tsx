@@ -2,12 +2,15 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/tauri";
 import "./App.css";
+import { Outlet, RouterProvider } from "react-router-dom";
+import { router } from "./router";
+import { GlobalEventHandler } from "./components/GlobalEventHandler";
 
 function App() {
   return (
-    <div className="container">
-      <h1>Hello !</h1>
-    </div>
+    <GlobalEventHandler>
+      <Outlet/>
+    </GlobalEventHandler>
   );
 }
 

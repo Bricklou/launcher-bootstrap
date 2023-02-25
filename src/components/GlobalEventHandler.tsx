@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { listen, UnlistenFn, Event } from "@tauri-apps/api/event";
-import { useNavigate, useNavigation } from "react-router-dom";
+import { listen, UnlistenFn } from "@tauri-apps/api/event";
+import { useNavigate } from "react-router-dom";
 
 interface GlobalEventHandlerProps {
   children: JSX.Element;
@@ -28,20 +28,29 @@ export function GlobalEventHandler(
   let unlistenEvent: UnlistenFn | null = null;
 
   useEffect(() => {
-
     (async () => {
       if (!unlistenEvent) {
-        unlistenEvent = await listen<ILinkEvent>(GlobalEvent.LinkEvent, (event)=> {
-          const payload = event.payload;
-          switch (payload.event_type) {
-            case LinkEventType.OpenConfig: {
-              navigate("/open-config", { state: { config: payload.data } });
-            }
-            case LinkEventType.NewConfig: {
-              navigate("/new-config", { state: { config: payload.data } });
+        unlistenEvent = await listen<ILinkEvent>(
+          GlobalEvent.LinkEvent,
+          (event) => {
+            const payload = event.payload;
+            switch (payload.event_type) {
+              case LinkEventType.OpenConfig: {
+                navigate("/open-config", {
+                  state: { config: payload.data },
+                  replace: true,
+                });
+              }
+              case LinkEventType.NewConfig: {
+                console.trace("new config: %s", payload.data);
+                navigate("/new-config", {
+                  state: { config: payload.data },
+                  replace: true,
+                });
+              }
             }
           }
-        });
+        );
       }
     })();
 

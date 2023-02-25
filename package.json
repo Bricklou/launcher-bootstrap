@@ -8,15 +8,19 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "tauri": "tauri",
-    "open-demo-link": "xdg-open launcher-bootstrap://new-config?url=https://bricklou.ovh/bootstrap.json"
+    "open-demo-link": "xdg-open launcher-bootstrap://new-config?url=http://localhost:8000/bootstrap.json",
+    "serve": "serve -s demo -l 8000"
   },
   "dependencies": {
     "@tauri-apps/api": "2.0.0-alpha.0",
+    "daisyui": "^2.51.1",
+    "lucide-react": "^0.115.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.1"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.9",
     "@tauri-apps/cli": "2.0.0-alpha.2",
     "@types/node": "^18.7.10",
     "@types/react": "^18.0.15",
@@ -26,6 +30,7 @@
     "autoprefixer": "^10.4.13",
     "cssnano": "^5.1.15",
     "postcss": "^8.4.21",
+    "serve": "^14.2.0",
     "tailwindcss": "^3.2.7",
     "typescript": "^4.6.4",
     "vite": "^4.0.0"

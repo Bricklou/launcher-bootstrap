@@ -1,4 +1,4 @@
-use crate::remote::config::Config;
+use crate::remote::meta_config::MetadataConfig;
 
 #[derive(Debug, thiserror::Error)]
 pub enum CommandError {
@@ -16,8 +16,8 @@ impl serde::Serialize for CommandError {
 }
 
 #[tauri::command]
-pub async fn fetch_config(url: String) -> Result<Config, CommandError> {
-    let config = Config::download_from_url(&url).await?;
+pub async fn fetch_config(url: String) -> Result<MetadataConfig, CommandError> {
+    let config = MetadataConfig::download_from_url(&url).await?;
 
     Ok(config)
 }

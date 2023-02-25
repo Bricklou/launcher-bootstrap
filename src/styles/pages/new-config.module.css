@@ -1,0 +1,23 @@
+.newConfig {
+  @apply p-8 flex flex-col min-h-screen;
+
+  .title {
+    @apply text-primary font-bold text-3xl uppercase tracking-wide mb-8;
+  }
+
+  section {
+    @apply flex-1;
+
+    h2 {
+      @apply text-xl mb-4;
+    }
+
+    p {
+      @apply mb-2;
+    }
+  }
+
+  footer {
+    @apply text-center;
+  }
+}

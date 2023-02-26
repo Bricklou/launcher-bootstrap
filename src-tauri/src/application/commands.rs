@@ -1,3 +1,5 @@
+use tauri::Manager;
+
 use crate::remote::meta_config::MetadataConfig;
 
 use super::{config_file::ConfigFile, paths::config_path};
@@ -8,7 +10,10 @@ pub enum CommandError {
     DownloadConfig(#[from] reqwest::Error),
 
     #[error(transparent)]
-    SaveConfig(#[from] std::io::Error),
+    ConfigIO(#[from] std::io::Error),
+
+    #[error(transparent)]
+    TauriError(#[from] tauri::Error),
 }
 
 impl serde::Serialize for CommandError {
@@ -40,6 +45,11 @@ pub async fn create_config(
     config.add_config(&url, &metadata);
 
     config.save(&dir)?;
+
+    app_handle.emit_all(
+        "open-config",
+        format!("launcher-bootstrap://open-config?url={}", url),
+    )?;
 
     Ok(())
 }

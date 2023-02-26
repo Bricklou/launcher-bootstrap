@@ -1311,7 +1311,6 @@ dependencies = [
 name = "launcher-bootstrap"
 version = "0.0.0"
 dependencies = [
- "dirs-next",
  "interprocess",
  "once_cell",
  "reqwest",

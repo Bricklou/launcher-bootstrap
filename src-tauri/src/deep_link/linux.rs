@@ -5,7 +5,7 @@ use std::{
     process::Command,
 };
 
-use dirs_next::data_dir;
+use tauri::api::path::data_dir;
 
 use super::ID;
 

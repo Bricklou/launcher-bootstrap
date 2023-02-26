@@ -5,9 +5,19 @@ export interface RemoteConfig {
   folder_name: string;
   files_url: string;
   theme_url: string;
+  url: string;
 }
 
 export async function downloadConfig(url: string): Promise<RemoteConfig> {
-  let config = await invoke<RemoteConfig>("fetch_config", { url });
-  return config;
+  const config = await invoke<Omit<RemoteConfig, "url">>("fetch_config", {
+    url,
+  });
+  return {
+    ...config,
+    url,
+  };
+}
+
+export async function createConfig(url: string, config: RemoteConfig) {
+  await invoke<void>("create_config", { metadata: config, url });
 }

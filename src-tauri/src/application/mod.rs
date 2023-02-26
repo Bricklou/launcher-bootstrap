@@ -4,7 +4,9 @@ use tracing_subscriber::FmtSubscriber;
 use crate::{constants, deep_link};
 
 mod commands;
+mod config_file;
 mod link_events;
+mod paths;
 
 pub fn init() -> Result<(), Box<dyn std::error::Error>> {
     // a builder for `FmtSubscriber`.
@@ -40,7 +42,10 @@ pub fn setup(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
 
 pub fn run() -> Result<(), Box<dyn std::error::Error>> {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![commands::fetch_config])
+        .invoke_handler(tauri::generate_handler![
+            commands::fetch_config,
+            commands::create_config
+        ])
         .setup(setup)
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

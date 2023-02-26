@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigation } from "react-router-dom";
-import { downloadConfig, RemoteConfig } from "../utils/config";
+import { useLocation } from "react-router-dom";
+import { downloadConfig, createConfig, RemoteConfig } from "../utils/config";
 import style from "../styles/pages/new-config.module.css";
 import { Button } from "../components/button/Button";
 import { Plus } from "lucide-react";
 
 export function NewConfigPage(): JSX.Element {
   const location = useLocation();
+  const url = location.state.config;
   const [config, setConfig] = useState<RemoteConfig | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchConfig = async (url: string) => {
+  const fetchConfig = async () => {
     try {
       const config = await downloadConfig(url);
       setConfig(config);
@@ -25,9 +26,25 @@ export function NewConfigPage(): JSX.Element {
     }
   };
 
+  const saveConfig = async () => {
+    console.trace("Save config: %O", config);
+    if (config === null) return;
+
+    try {
+      await createConfig(url, config);
+    } catch (e) {
+      console.error(e);
+      if (e instanceof Error) {
+        setError(e.message);
+      } else {
+        setError("Unknown error");
+      }
+    }
+  };
+
   useEffect(() => {
     console.log("New config page", location.state.config);
-    void fetchConfig(location.state.config);
+    void fetchConfig();
   }, []);
 
   return (
@@ -51,7 +68,9 @@ export function NewConfigPage(): JSX.Element {
             <p>If this action doesn't come from you, close the window.</p>
           </section>
           <footer>
-            <Button icon={<Plus />}>Create</Button>
+            <Button icon={<Plus />} onClick={saveConfig}>
+              Create
+            </Button>
           </footer>
         </>
       )}

@@ -26,6 +26,8 @@ pub fn register_link_events(
     // Convert the query string pairs into a map
     let query_map: std::collections::HashMap<_, _> = input_url.query_pairs().into_owned().collect();
 
+    let mut window = handle.get_window("main").unwrap();
+
     match path {
         "new-config" => {
             if let Some(config_name) = query_map.get("url") {
@@ -34,6 +36,7 @@ pub fn register_link_events(
                     data: config_name.clone(),
                 };
                 handle.emit_all("link-event", payload)?;
+                window.request_user_attention(Some(tauri::UserAttentionType::Informational))?;
             }
         }
         "open-config" => {
@@ -43,6 +46,7 @@ pub fn register_link_events(
                     data: config_name.clone(),
                 };
                 handle.emit_all("link-event", payload)?;
+                window.request_user_attention(Some(tauri::UserAttentionType::Informational))?;
             }
         }
         _ => {}

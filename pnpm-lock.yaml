@@ -10,6 +10,7 @@ specifiers:
   '@types/react-router-dom': ^5.3.3
   '@vitejs/plugin-react': ^3.0.0
   autoprefixer: ^10.4.13
+  classnames: ^2.3.2
   cssnano: ^5.1.15
   daisyui: ^2.51.1
   lucide-react: ^0.115.0
@@ -24,6 +25,7 @@ specifiers:
 
 dependencies:
   '@tauri-apps/api': 2.0.0-alpha.0
+  classnames: 2.3.2
   daisyui: 2.51.1_gbtt6ss3tbiz4yjtvdr6fbrj44
   lucide-react: 0.115.0_react@18.2.0
   react: 18.2.0
@@ -933,6 +935,10 @@ packages:
       readdirp: 3.6.0
     optionalDependencies:
       fsevents: 2.3.2
+
+  /classnames/2.3.2:
+    resolution: {integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==}
+    dev: false
 
   /cli-boxes/3.0.0:
     resolution: {integrity: sha512-/lzGpEWL/8PfI0BmBOPRwp0c/wFNX1RdUML3jK/RcSBA9T8mZDdQpqYBKtCFTOfQbwPqWEOpjqW+Fnayc0969g==}

@@ -26,7 +26,7 @@ pub fn register_link_events(
     // Convert the query string pairs into a map
     let query_map: std::collections::HashMap<_, _> = input_url.query_pairs().into_owned().collect();
 
-    let mut window = handle.get_window("main").unwrap();
+    let window = handle.get_window("main").unwrap();
 
     match path {
         "new-config" => {

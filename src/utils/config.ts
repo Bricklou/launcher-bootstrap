@@ -8,6 +8,10 @@ export interface RemoteConfig {
   url: string;
 }
 
+export interface LocalConfigFile {
+  configs: Record<string, Omit<RemoteConfig, "url">>;
+}
+
 export async function downloadConfig(url: string): Promise<RemoteConfig> {
   const config = await invoke<Omit<RemoteConfig, "url">>("fetch_config", {
     url,
@@ -20,4 +24,14 @@ export async function downloadConfig(url: string): Promise<RemoteConfig> {
 
 export async function createConfig(url: string, config: RemoteConfig) {
   await invoke<void>("create_config", { metadata: config, url });
+}
+
+export async function getConfigs(url: string): Promise<LocalConfigFile> {
+  const config = await invoke<LocalConfigFile>("get_configs");
+  return config;
+}
+
+export async function checkIfConfigExists(url: string): Promise<boolean> {
+  const configs = await getConfigs(url);
+  return configs.configs[url] !== undefined;
 }

@@ -44,7 +44,8 @@ pub fn run() -> Result<(), Box<dyn std::error::Error>> {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             commands::fetch_config,
-            commands::create_config
+            commands::create_config,
+            commands::get_configs,
         ])
         .setup(setup)
         .run(tauri::generate_context!())

@@ -33,6 +33,15 @@ pub async fn fetch_config(url: String) -> Result<MetadataConfig, CommandError> {
 }
 
 #[tauri::command]
+pub fn get_configs(app_handle: tauri::AppHandle) -> Result<ConfigFile, CommandError> {
+    let dir = config_path(&app_handle.path_resolver());
+
+    let config = ConfigFile::load(&dir)?;
+
+    Ok(config)
+}
+
+#[tauri::command]
 pub async fn create_config(
     app_handle: tauri::AppHandle,
     url: String,

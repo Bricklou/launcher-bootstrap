@@ -2,7 +2,12 @@ use tauri::Manager;
 
 use crate::remote::meta_config::MetadataConfig;
 
-use super::{config_file::ConfigFile, paths::config_path};
+use super::{
+    config_file::ConfigFile,
+    link_events::{LinkEvent, LinkEventPayload},
+    paths::config_path,
+    shortcuts::Shortcut,
+};
 
 #[derive(Debug, thiserror::Error)]
 pub enum CommandError {
@@ -55,10 +60,18 @@ pub async fn create_config(
 
     config.save(&dir)?;
 
+    Shortcut::create(&url, &metadata)?;
+
+    let window = app_handle.get_window("main").unwrap();
+
     app_handle.emit_all(
-        "open-config",
-        format!("launcher-bootstrap://open-config?url={}", url),
+        "link-event",
+        LinkEventPayload {
+            event_type: LinkEvent::OpenConfig,
+            data: url.to_string(),
+        },
     )?;
+    window.request_user_attention(Some(tauri::UserAttentionType::Informational))?;
 
     Ok(())
 }

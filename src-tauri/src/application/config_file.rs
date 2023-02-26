@@ -1,14 +1,8 @@
-use std::{
-    collections::HashMap,
-    io::{Read, Write},
-    path::PathBuf,
-};
+use std::{collections::HashMap, io::Write, path::PathBuf};
 
 use serde::{Deserialize, Serialize};
 
 use crate::remote::meta_config::MetadataConfig;
-
-use super::paths::config_path;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ConfigFile {

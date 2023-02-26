@@ -7,6 +7,7 @@ mod commands;
 mod config_file;
 mod link_events;
 mod paths;
+mod shortcuts;
 
 pub fn init() -> Result<(), Box<dyn std::error::Error>> {
     // a builder for `FmtSubscriber`.

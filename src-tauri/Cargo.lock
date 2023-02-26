@@ -1312,6 +1312,7 @@ name = "launcher-bootstrap"
 version = "0.0.0"
 dependencies = [
  "interprocess",
+ "mslnk",
  "once_cell",
  "reqwest",
  "serde",
@@ -1465,6 +1466,17 @@ dependencies = [
  "log",
  "wasi 0.11.0+wasi-snapshot-preview1",
  "windows-sys 0.45.0",
+]
+
+[[package]]
+name = "mslnk"
+version = "0.1.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "86c97310150b7f496a93f31690da7822b99d95ff68ca9d30fb09d3ad54375c76"
+dependencies = [
+ "bitflags",
+ "byteorder",
+ "log",
 ]
 
 [[package]]

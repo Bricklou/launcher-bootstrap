@@ -3,7 +3,7 @@ use tauri::Manager;
 use url::Url;
 
 #[derive(Debug, Serialize, Clone)]
-enum LinkEvent {
+pub enum LinkEvent {
     #[serde(rename = "new-config")]
     NewConfig,
     #[serde(rename = "open-config")]
@@ -11,9 +11,9 @@ enum LinkEvent {
 }
 
 #[derive(Debug, Clone, Serialize)]
-struct LinkEventPayload {
-    event_type: LinkEvent,
-    data: String,
+pub struct LinkEventPayload {
+    pub event_type: LinkEvent,
+    pub data: String,
 }
 
 pub fn register_link_events(
@@ -35,6 +35,7 @@ pub fn register_link_events(
                     event_type: LinkEvent::NewConfig,
                     data: config_name.clone(),
                 };
+                window.show()?;
                 handle.emit_all("link-event", payload)?;
                 window.request_user_attention(Some(tauri::UserAttentionType::Informational))?;
             }
@@ -45,6 +46,7 @@ pub fn register_link_events(
                     event_type: LinkEvent::OpenConfig,
                     data: config_name.clone(),
                 };
+                window.show()?;
                 handle.emit_all("link-event", payload)?;
                 window.request_user_attention(Some(tauri::UserAttentionType::Informational))?;
             }

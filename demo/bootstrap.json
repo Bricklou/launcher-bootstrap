@@ -1,0 +1,7 @@
+{
+    "server_name": "Bricklou's server",
+    "folder_name": "bricklou",
+    "files_url": "./files.json",
+    "theme_url": "./updater.json",
+    "last_modified": "2023-02-24T21:12:49+00:00"
+}

@@ -1,0 +1,4 @@
+.button {
+  @apply btn gap-2;
+  @apply btn-primary !important;
+}

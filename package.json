@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "tauri": "tauri",
-    "open-demo-link": "xdg-open launcher-bootstrap://new-config?url=http://localhost:8000/bootstrap.json",
+    "open-demo-link:linux": "xdg-open launcher-bootstrap://new-config?url=http://localhost:8000/bootstrap.json",
+    "open-demo-link:win": "start launcher-bootstrap://new-config?url=http://localhost:8000/bootstrap.json",
     "serve": "serve -s demo -l 8000"
   },
   "dependencies": {

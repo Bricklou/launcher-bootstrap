@@ -36,6 +36,7 @@ export function Modal(props: ModalProps): JSX.Element {
           <div className="modal-action">
             {props.actions?.map((action) => (
               <Button
+                key={action.label}
                 onClick={
                   action.onClick ? onClickWrapper(action.onClick) : undefined
                 }

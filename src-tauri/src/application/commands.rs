@@ -1,4 +1,5 @@
 use tauri::Manager;
+use tracing::trace;
 
 use crate::remote::meta_config::MetadataConfig;
 
@@ -6,7 +7,7 @@ use super::{
     config_file::ConfigFile,
     link_events::{LinkEvent, LinkEventPayload},
     paths::config_path,
-    shortcuts::Shortcut,
+    shortcuts::{Shortcut, ShortcutError},
 };
 
 #[derive(Debug, thiserror::Error)]
@@ -19,6 +20,9 @@ pub enum CommandError {
 
     #[error(transparent)]
     TauriError(#[from] tauri::Error),
+
+    #[error(transparent)]
+    ShortcutError(#[from] ShortcutError),
 }
 
 impl serde::Serialize for CommandError {
@@ -53,6 +57,8 @@ pub async fn create_config(
     metadata: MetadataConfig,
 ) -> Result<(), CommandError> {
     let dir = config_path(&app_handle.path_resolver());
+
+    trace!("Config path: {:?}", dir);
 
     let mut config = ConfigFile::load(&dir)?;
 

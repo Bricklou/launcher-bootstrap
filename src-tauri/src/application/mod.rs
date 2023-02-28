@@ -1,3 +1,4 @@
+use tauri::Manager;
 use tracing::Level;
 use tracing_subscriber::FmtSubscriber;
 
@@ -37,6 +38,12 @@ pub fn setup(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
         dbg!(&request);
         link_events::register_link_events(request, &handle).unwrap();
     })?;
+
+    #[cfg(debug_assertions)]
+    {
+        let window = app.get_window("main").unwrap();
+        window.open_devtools();
+    }
 
     Ok(())
 }

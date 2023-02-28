@@ -4,8 +4,12 @@ use serde::{Deserialize, Serialize};
 pub struct MetadataConfig {
     pub server_name: String,
     pub folder_name: String,
+
     pub files_url: String,
+    pub files_hash: String,
+
     pub theme_url: String,
+    pub theme_hash: String,
 }
 
 impl MetadataConfig {

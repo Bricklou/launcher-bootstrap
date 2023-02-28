@@ -1,10 +1,20 @@
 use crate::remote::meta_config::MetadataConfig;
 
+#[derive(Debug, thiserror::Error)]
+pub enum ShortcutError {
+    #[error("Couldn't create shortcut: {0}")]
+    CreateShortcut(#[from] std::io::Error),
+
+    #[cfg(target_os = "windows")]
+    #[error("Couldn't create shortcut: {0}")]
+    CreateShortcutWindows(#[from] mslnk::MSLinkError),
+}
+
 pub struct Shortcut;
 
 impl Shortcut {
     #[cfg(target_os = "linux")]
-    pub fn create(url: &str, config: &MetadataConfig) -> Result<(), std::io::Error> {
+    pub fn create(url: &str, config: &MetadataConfig) -> Result<(), ShortcutError> {
         use std::fs::File;
         use std::io::{Error, ErrorKind, Write};
         use tauri::api::path::data_dir;
@@ -49,28 +59,32 @@ impl Shortcut {
         url: &str,
         config: &MetadataConfig,
         resolver: &PathResolver,
-    ) -> Result<(), std::io::Error> {
+    ) -> Result<(), ShortcutError> {
         let local_apps_path = resolver.app_local_data_dir();
         Ok(())
     }
 
     #[cfg(target_os = "windows")]
-    pub fn create(url: &str, config: &MetadataConfig) -> Result<(), std::io::Error> {
+    pub fn create(url: &str, config: &MetadataConfig) -> Result<(), ShortcutError> {
+        use std::io;
+
         use mslnk::ShellLink;
         use tauri::api::path::desktop_dir;
 
-        let exe = tauri::utils::platform::current_exe()?;
+        let exe = tauri::utils::platform::current_exe()?.canonicalize()?;
 
-        let target = format!(
-            "{} launcher-bootstrap://open-config?url={}",
-            exe.to_string_lossy(),
-            url
-        );
+        let target = format!("launcher-bootstrap://open-config?url={}", url);
+
         let link = desktop_dir()
-            .ok_or_else(|| Error::new(ErrorKind::NotFound, "Desktop directory not found."))?
+            .ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, "Desktop directory not found."))?
             .join(format!("{}.lnk", config.server_name));
 
-        let shortcut = ShellLink::new(target)?;
+        if link.exists() {
+            std::fs::remove_file(&link)?;
+        }
+
+        let mut shortcut = ShellLink::new(exe.to_string_lossy().replace("\\\\?\\", ""))?;
+        shortcut.set_arguments(Some(target));
         shortcut.create_lnk(link)?;
         Ok(())
     }

@@ -13,6 +13,9 @@ pub enum CommandError {
 
     #[error(transparent)]
     ShortcutError(#[from] ShortcutError),
+
+    #[error(transparent)]
+    UpdaterError(#[from] crate::remote::updater_config::UpdaterConfigError),
 }
 
 impl serde::Serialize for CommandError {

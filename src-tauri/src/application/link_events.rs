@@ -36,6 +36,7 @@ pub fn register_link_events(
                     data: config_name.clone(),
                 };
                 window.show()?;
+                window.set_focus()?;
                 handle.emit_all("link-event", payload)?;
                 window.request_user_attention(Some(tauri::UserAttentionType::Informational))?;
             }
@@ -47,6 +48,7 @@ pub fn register_link_events(
                     data: config_name.clone(),
                 };
                 window.show()?;
+                window.set_focus()?;
                 handle.emit_all("link-event", payload)?;
                 window.request_user_attention(Some(tauri::UserAttentionType::Informational))?;
             }

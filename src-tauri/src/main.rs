@@ -9,6 +9,7 @@ mod application;
 mod constants;
 mod deep_link;
 mod remote;
+mod utils;
 
 fn main() {
     application::init().expect("Failed to initialize application");

@@ -47,9 +47,9 @@ impl ConfigFile {
     }
 
     pub fn save(&self, config_path: &PathBuf) -> Result<(), std::io::Error> {
-        let parent_parent = config_path.parent().unwrap();
-        if !parent_parent.exists() {
-            std::fs::create_dir_all(parent_parent)?;
+        let parent = config_path.parent().unwrap();
+        if !parent.exists() {
+            std::fs::create_dir_all(parent)?;
         }
 
         let mut file = std::fs::OpenOptions::new()

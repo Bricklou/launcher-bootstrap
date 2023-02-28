@@ -5,10 +5,10 @@ use crate::{
     application::{
         config_file::ConfigFile,
         link_events::{LinkEvent, LinkEventPayload},
-        paths::config_path,
+        paths::{config_path, instance_path, updater_path},
         shortcuts::Shortcut,
     },
-    remote::meta_config::MetadataConfig,
+    remote::{meta_config::MetadataConfig, updater_config::UpdaterConfig},
 };
 
 use super::errors::CommandError;
@@ -19,15 +19,22 @@ pub async fn create_config(
     url: String,
     metadata: MetadataConfig,
 ) -> Result<(), CommandError> {
-    let dir = config_path(&app_handle.path_resolver());
+    let config_path = config_path(&app_handle.path_resolver());
 
-    trace!("Config path: {:?}", dir);
+    trace!("Config path: {:?}", config_path);
 
-    let mut config = ConfigFile::load(&dir)?;
-
+    let mut config = ConfigFile::load(&config_path)?;
     config.add_config(&url, &metadata);
 
-    config.save(&dir)?;
+    let instance_path = instance_path(&app_handle.path_resolver(), &metadata);
+
+    if metadata.theme_url.is_some() {
+        let updater_path = updater_path(&app_handle.path_resolver(), &metadata);
+        let updater = UpdaterConfig::download_from_meta(&url, &metadata).await?;
+        updater.save(&updater_path)?;
+    }
+
+    config.save(&config_path)?;
 
     Shortcut::create(&url, &metadata)?;
 

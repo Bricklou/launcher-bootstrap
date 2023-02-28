@@ -35,19 +35,23 @@ export function GlobalEventHandler(
           (event) => {
             const payload = event.payload;
             switch (payload.event_type) {
-              case LinkEventType.OpenConfig: {
-                navigate("/open-config", {
-                  state: { config: payload.data },
-                  replace: true,
-                });
-              }
-              case LinkEventType.NewConfig: {
-                console.trace("new config: %s", payload.data);
-                navigate("/new-config", {
-                  state: { config: payload.data },
-                  replace: true,
-                });
-              }
+              case LinkEventType.OpenConfig:
+                {
+                  navigate("/open-config", {
+                    state: { config: payload.data },
+                    replace: true,
+                  });
+                }
+                break;
+              case LinkEventType.NewConfig:
+                {
+                  console.trace("new config: %s", payload.data);
+                  navigate("/new-config", {
+                    state: { config: payload.data },
+                    replace: true,
+                  });
+                }
+                break;
             }
           }
         );

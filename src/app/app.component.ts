@@ -1,20 +1,64 @@
-import { Component } from "@angular/core";
-import { invoke } from "@tauri-apps/api/tauri";
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {listen, UnlistenFn, Event} from "@tauri-apps/api/event";
+import {Router} from "@angular/router";
+
+enum GlobalEvent {
+    LinkEvent = "link-event",
+}
+
+enum LinkEventType {
+    OpenConfig = "open-config",
+    NewConfig = "new-config",
+}
+
+interface ILinkEvent {
+    event_type: LinkEventType;
+    data: string;
+}
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"],
+    selector: "app-root",
+    templateUrl: "./app.component.html",
+    styleUrls: ["./app.component.css"],
 })
-export class AppComponent {
-  greetingMessage = "";
+export class AppComponent implements OnInit, OnDestroy {
+    private unlistenEvent: UnlistenFn | null = null;
 
-  greet(event: SubmitEvent, name: string): void {
-    event.preventDefault();
+    public constructor(private router: Router) {
+    }
 
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    invoke<string>("greet", { name }).then((text) => {
-      this.greetingMessage = text;
-    });
-  }
+    ngOnDestroy(): void {
+        this.unlistenEvent?.();
+        this.unlistenEvent = null;
+    }
+
+    async ngOnInit(): Promise<void> {
+        if (this.unlistenEvent) return;
+
+        this.unlistenEvent = await listen<ILinkEvent>(GlobalEvent.LinkEvent, this.linkEventHandler);
+    }
+
+    private async linkEventHandler(event: Event<ILinkEvent>) {
+        const payload = event.payload;
+
+        switch (payload.event_type) {
+            case LinkEventType.OpenConfig: {
+                await this.router.navigate(["/open-config"], {
+                    queryParams: {
+                        config: payload.data,
+                    }
+                });
+                break;
+            }
+            case LinkEventType.NewConfig: {
+                console.log("New config");
+                await this.router.navigate(["/new-config"], {
+                    queryParams: {
+                        config: payload.data,
+                    }
+                });
+                break;
+            }
+        }
+    }
 }

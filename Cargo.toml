@@ -1,0 +1,5 @@
+[workspace]
+members = ["src-tauri", "json-metagen"]
+
+[workspace.package]
+version = "0.0.1"

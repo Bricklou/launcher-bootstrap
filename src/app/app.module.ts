@@ -1,25 +1,28 @@
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from '@angular/core'
+import { BrowserModule } from '@angular/platform-browser'
 
-import { AppComponent } from "./app.component";
-import {HomeComponent} from "./pages/home/home.component";
-import {NewConfigComponent} from "./pages/new-config/new-config.component";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {AppRoutingModule} from "./app-routing.module";
+import { AppComponent } from './app.component'
+import { HomeComponent } from './pages/home/home.component'
+import { NewConfigComponent } from './pages/new-config/new-config.component'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { AppRoutingModule } from './app-routing.module'
+import { TauriApiService } from './services/tauri-api.service'
 
 @NgModule({
   declarations: [
-      AppComponent,
-      HomeComponent,
-      NewConfigComponent
+    AppComponent,
+    HomeComponent,
+    NewConfigComponent
   ],
   imports: [
-      BrowserModule,
-      BrowserAnimationsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
 
-      AppRoutingModule
+    AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  public constructor (private readonly tauriApi: TauriApiService) {}
+}

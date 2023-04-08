@@ -1,5 +1,21 @@
 {
     "rust-analyzer.workspace.symbol.search.scope": "workspace_and_dependencies",
     "rust-analyzer.workspace.symbol.search.kind": "all_symbols",
-    "rust-analyzer.workspace.symbol.search.limit": 128
+    "rust-analyzer.workspace.symbol.search.limit": 128,
+    "editor.formatOnSave": true,
+    "eslint.format.enable": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "eslint.codeActionsOnSave.mode": "all",
+    "cSpell.words": [
+        "tauri",
+        "unlisten"
+    ]
 }

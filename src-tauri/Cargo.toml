@@ -27,7 +27,7 @@ thiserror = "1"
 [target.'cfg(windows)'.dependencies]
 mslnk = "0.1"
 interprocess = { git = "https://github.com/kotauskas/interprocess", default-features = false }
-winreg = "0.11.0"
+winreg = "0.50.0"
 
 [features]
 # by default Tauri runs in production mode

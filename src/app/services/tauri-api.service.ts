@@ -43,7 +43,7 @@ export class TauriApiService implements OnDestroy {
 
     switch (payload.event_type) {
       case LinkEventType.OpenConfig: {
-        await this.router.navigate(['/open-config'], {
+        await this.router.navigate(['open-config'], {
           queryParams: {
             config: payload.data
           }
@@ -53,7 +53,7 @@ export class TauriApiService implements OnDestroy {
 
       case LinkEventType.NewConfig: {
         console.log('New config')
-        await this.router.navigate(['/new-config'], {
+        await this.router.navigate(['new-config'], {
           queryParams: {
             config: payload.data
           }

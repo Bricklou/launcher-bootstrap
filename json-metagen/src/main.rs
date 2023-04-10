@@ -1,3 +1,12 @@
+mod autocomplete;
+mod cli;
+
 fn main() {
-    println!("Hello, world!");
+    match cli::run() {
+        Err(e) => {
+            eprintln!("Error: {}", e);
+            std::process::exit(1);
+        }
+        _ => {}
+    }
 }

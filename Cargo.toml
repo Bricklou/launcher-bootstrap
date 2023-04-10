@@ -1,5 +1,10 @@
 [workspace]
-members = ["src-tauri", "json-metagen"]
+members = ["src-tauri", "json-metagen", "common"]
 
 [workspace.package]
 version = "0.0.1"
+
+[workspace.dependencies]
+serde = "1"
+serde_json = "1"
+common = { path = "./common" }

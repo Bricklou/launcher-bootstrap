@@ -1,6 +1,9 @@
+import { RemoteConfig } from './../types/config'
 import { Injectable, type OnDestroy } from '@angular/core'
 import { Router } from '@angular/router'
 import { Event, listen, type UnlistenFn } from '@tauri-apps/api/event'
+import { Observable, from } from 'rxjs'
+import { invoke } from '@tauri-apps/api'
 
 export enum GlobalEvent {
   LinkEvent = 'link-event'
@@ -64,5 +67,13 @@ export class TauriApiService implements OnDestroy {
       default:
         break
     }
+  }
+
+  public getConfig (name: string): Observable<RemoteConfig|null> {
+    return from(invoke<RemoteConfig>('get_config', { configName: name }))
+  }
+
+  public getOrFetchConfig (name: string): Observable<RemoteConfig|null> {
+    return from(invoke<RemoteConfig>('get_or_fetch_config', { configName: name }))
   }
 }

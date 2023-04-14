@@ -1,1 +1,38 @@
-<p>new-config works!</p>
+<div class="new-config">
+    <h1 class="title">
+        New config
+    </h1>
+
+    <ng-container *ngIf="config">
+        <section>
+            <h2>
+                Install the
+                <span class="text-secondary font-semibold">
+                    {{ config.server_name }}
+                </span>
+                launcher?
+            </h2>
+
+            <p>
+                After clicking the <span className="kbd kbd-sm">Create</span>
+                button, the bootstrap will install the launcher.
+            </p>
+            <p>If this action doesn't come from you, close the window.</p>
+
+            <ng-container *ngIf="alreadyExists">
+                <div className="exists">
+                    <div>
+                        <p>
+                            <span className="text-secondary font-semibold">
+                                {{config.server_name}}
+                            </span>
+                            launcher already exists. Clicking the
+                            <span className="kbd kbd-sm">Override</span> button will
+                            override the existing launcher.
+                        </p>
+                    </div>
+                </div>
+            </ng-container>
+        </section>
+    </ng-container>
+</div>

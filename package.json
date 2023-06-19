@@ -13,7 +13,7 @@
     "serve": "serve -s demo -l 8000"
   },
   "dependencies": {
-    "@tauri-apps/api": "2.0.0-alpha.3",
+    "@tauri-apps/api": "2.0.0-alpha.5",
     "classnames": "^2.3.2",
     "daisyui": "^2.51.1",
     "lucide-react": "^0.190.0",

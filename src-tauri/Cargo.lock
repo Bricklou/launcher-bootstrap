@@ -1205,7 +1205,7 @@ dependencies = [
 [[package]]
 name = "interprocess"
 version = "2.0.0"
-source = "git+https://github.com/kotauskas/interprocess#930202a71158b3025be108814791d5b86e6a07b7"
+source = "git+https://github.com/kotauskas/interprocess#c66891d76e78392f1d695259daef7b73b854c18f"
 dependencies = [
  "cfg-if",
  "libc",
